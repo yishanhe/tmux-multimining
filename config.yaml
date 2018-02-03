@@ -1,0 +1,75 @@
+# current only support equihash
+
+# gpu configures
+# arrange this configurations as the output of nvidia-smi
+devices:
+  - id: 0
+    model: evga-1080ti-sc2
+    pwrcap: 250
+  - id: 1
+    model: evga-1070ti-sc
+    pwrcap: 180
+  - id: 2
+    model: evga-1070ti-sc
+    pwrcap: 180
+  - id: 3
+    model: evga-1080ti-ftw3
+    pwrcap: 280
+  - id: 4
+    model: nvidia-1070-founder
+    pwrcap: 150
+  - id: 5
+    model: evga-1080ti-sc2
+    pwrcap: 250
+
+wallets:
+  zec-flypool-bittrex: 
+    server: eu1-zcash.flypool.org
+    port: 3333
+    address: t1QMNWFNGcJw4yJWm1md57QtVRnHeTcPxpf.eva00
+    pass: x
+  zec-flypool-binance:
+    server: eu1-zcash.flypool.org
+    port: 3333
+    address: t1aLAzdsnMbxS3xMsGV2pUK66Ro58oLv1eD.eva00
+    pass: x
+  zen-suprnova:
+    server: zen.suprnova.cc
+    port: 3618
+    address: yishanhe.eva00
+    pass: x
+  zcl-suprnova:
+    server: zcl.suprnova.cc
+    port: 4042
+    address: yishanhe.eva00
+    pass: x
+  zcl-donation:
+    server: pool.zclassic.org
+    port: 2083
+    address: t1Nncx9t9AJFq1LXoxkRE8YxZpoLxDJRNxK.eva00
+    pass: x     
+
+miners:
+  zm: ./miners/zm
+  ewbf: ./miners/ewbf
+  bminer: ./miners/bminer
+
+default:
+  - miner: zm
+    wallet: zec-flypool-binance
+    devices:
+      - 1
+      - 2
+      - 4
+  - miner: zm
+    wallet: zcl-donation
+    devices:
+      - 0
+      - 5
+  - miner: zm
+    wallet: zen-suprnova
+    devices:
+      - 3     
+
+  
+
