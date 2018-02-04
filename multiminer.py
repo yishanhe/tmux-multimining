@@ -77,14 +77,7 @@ class MultiMiner(object):
                     )
 
                 self._build_layout(target, config)
-                # if target not in config:
-                #     cprint("Run plan ("+target+") not configured", 'red', attrs=['bold'])
-                #     return
-                
-                # cprint("STARTING MINERS:", 'green', attrs=['bold'])
-                # for miner_config in config[target]:
 
-                #     # run subprocess myself
             except yaml.YAMLError as e:
                 print(e)
             except:
@@ -98,16 +91,12 @@ class MultiMiner(object):
 
         # we use only one window, the default window
         default_window = self.miner_session.attached_window
-        print(default_window)
-        # in case the base index starts from 1 other than 0
-        pane_base_index = int(default_window.show_window_option('pane-base-index', g=True))
 
-        p = None
-        for pane_idx, miner_conf in enumerate(runner_config, start=pane_base_index):
+        p = default_window.attached_pane
 
-            if pane_idx == int(pane_base_index):
-                p = default_window.attached_pane # the current attched pane
-            else:
+        for pane_idx, miner_conf in enumerate(runner_config):
+
+            if pane_idx > 0:
                 # split the current window for more panes
                 p = default_window.split_window(
                     target=p.id,
@@ -117,7 +106,7 @@ class MultiMiner(object):
                 )
             
             default_window.select_layout('even-horizontal') # default layout
-            
+            default_window.server._update_panes()
 
             wallet_config = config['wallets'][miner_conf['wallet']]
             miner_config = config['miners'][miner_conf['miner']]
@@ -127,11 +116,7 @@ class MultiMiner(object):
             cmd = self._build_miner_cmd(miner_conf['miner'], wallet_config, miner_config, device_config)
             # run the command
             p.send_keys(cmd, suppress_history=True)
-
             
-
-            default_window.server._update_panes()
-
     
     def _build_miner_cmd(self, miner, wallet, miner_cmd, device):
         cmd = ''
@@ -139,10 +124,6 @@ class MultiMiner(object):
             cmd = '%s --server %s --port %d --user %s --pass %s --dev %s' % (miner_cmd, wallet['server'], wallet['port'], wallet['address'], wallet['pass'], " ".join(map(str, device)))
         return cmd
 
-
-    
-    # def _zm_config(self, config):
-    #     return lambda
     
 def main():
     fire.Fire(MultiMiner)
