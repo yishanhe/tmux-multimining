@@ -102,10 +102,10 @@ class MultiMiner(object):
                     target=p.id,
                     attach=True,
                     start_directory= None,
-                    vertical=False
+                    vertical=True
                 )
             
-            default_window.select_layout('even-horizontal') # default layout
+            default_window.select_layout('even-vertical') # default layout
             default_window.server._update_panes()
 
             wallet_config = config['wallets'][miner_conf['wallet']]
