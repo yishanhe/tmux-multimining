@@ -54,22 +54,33 @@ miners:
   ewbf: ./miners/ewbf
   bminer: ./miners/bminer
 
-default:
-  - miner: zm
-    wallet: zec-flypool-binance
-    devices:
-      - 1
-      - 2
-      - 4
-  - miner: zm
-    wallet: zcl-donation
-    devices:
-      - 0
-      - 5
-  - miner: zm
-    wallet: zen-suprnova
-    devices:
-      - 3     
+runners:
+  default:
+    - miner: zm
+      wallet: zec-flypool-binance
+      devices:
+        - 1
+        - 2
+        - 4
+    - miner: zm
+      wallet: zcl-donation
+      devices:
+        - 0
+        - 5
+    - miner: zm
+      wallet: zen-suprnova
+      devices:
+        - 3     
+  zec-binance:
+    - miner: zm
+      wallet: zec-flypool-binance
+      devices:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
 
   
 
