@@ -115,7 +115,6 @@ class MultiMiner(object):
             cmd = self._build_miner_cmd(miner_conf['miner'], wallet_config, miner_config, device_config)
             print(cmd)
             p.send_keys(cmd, suppress_history=True)
-            p.clear()
 
         self.server.attach_session(SESSION_NAME)
             
