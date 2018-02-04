@@ -15,11 +15,11 @@ class MultiMiner(object):
     use session name suffix as the identifier for runner plan
 
     TMUX commands you might use
-        C-a d          detach the current session
-        C-a left       go to the next pane on the left
-        C-a right      (or one of these other directions)
-        C-a up
-        C-a down
+        C-b d          detach the current session
+        C-b left       go to the next pane on the left
+        C-b right      (or one of these other directions)
+        C-b up
+        C-b down
     """
     
     def __init__(self):
@@ -40,7 +40,7 @@ class MultiMiner(object):
 
     def _miner_exist(func):
         def _decorator(self, *args, **kwargs):
-            if self.miner_sessions is None:
+            if self.miner_session is None:
                 print("NO MINER SESSION RUNNING")
                 return
             return func(self, *args, **kwargs)
@@ -51,20 +51,20 @@ class MultiMiner(object):
         pass
         
     @_miner_exist
-    def kill(self, target=None):
+    def stop(self):
         try:
-            self.server.kill_session(SESSION_NAME + '-' + self.miner_layout)
+            self.server.kill_session(SESSION_NAME)
             print("MINER STOPPED")
         except:
             # LibTmuxException
             pass
 
-    def run(self, target="default"):
+    def start(self, target="default"):
         # load config file
         with open("./config.yaml", 'r') as stream:
             try:
                 config = yaml.load(stream)
-                print(config)
+
                 # kill all miner sessions
                 if self.server.has_session(SESSION_NAME, exact=False):
                     self.server.kill_session(target_session=SESSION_NAME)
@@ -87,7 +87,6 @@ class MultiMiner(object):
     def _build_layout(self, target, config):
         
         runner_config = config['runners'][target]
-        print(runner_config)
 
         # we use only one window, the default window
         default_window = self.miner_session.attached_window
@@ -102,10 +101,10 @@ class MultiMiner(object):
                     target=p.id,
                     attach=True,
                     start_directory= None,
-                    vertical=True
+                    vertical=False
                 )
             
-            default_window.select_layout('even-vertical') # default layout
+            default_window.select_layout('even-horizontal') # default layout
             default_window.server._update_panes()
 
             wallet_config = config['wallets'][miner_conf['wallet']]
@@ -114,8 +113,11 @@ class MultiMiner(object):
 
             # build cmd
             cmd = self._build_miner_cmd(miner_conf['miner'], wallet_config, miner_config, device_config)
-            # run the command
+            print(cmd)
             p.send_keys(cmd, suppress_history=True)
+            p.clear()
+
+        self.server.attach_session(SESSION_NAME)
             
     
     def _build_miner_cmd(self, miner, wallet, miner_cmd, device):
