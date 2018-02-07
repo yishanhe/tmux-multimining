@@ -60,9 +60,19 @@ wallets:
     pass: x     
 
 miners:
-  zm: ./miners/zm
-  ewbf: ./miners/ewbf
-  bminer: ./miners/bminer
+  zm: 
+    location: ./miners/zm
+    version: 0.5.8
+    checksum: 
+      sha1: 827b137e061fe1da8f8fbcea12cec22449d3ae13 
+  ewbf: 
+    location: ./miners/ewbf
+    version: 0.3.4
+  bminer:
+    location: ./miners/bminer
+    version: 5.3.0
+    checksum:
+      sha256: 6e742df803a99dfdb4505890344b21968185081e99b10a8cfc312886bce131be
 
 runners:
   default:

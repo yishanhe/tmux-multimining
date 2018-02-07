@@ -119,10 +119,10 @@ class MultiMiner(object):
         self.server.attach_session(SESSION_NAME)
             
     
-    def _build_miner_cmd(self, miner, wallet, miner_cmd, device):
+    def _build_miner_cmd(self, miner_name, wallet, miner, device):
         cmd = ''
-        if miner == 'zm':
-            cmd = '%s --server %s --port %d --user %s --pass %s --dev %s' % (miner_cmd, wallet['server'], wallet['port'], wallet['address'], wallet['pass'], " ".join(map(str, device)))
+        if miner_name == 'zm':
+            cmd = '%s --server %s --port %d --user %s --pass %s --dev %s' % (miner['location'], wallet['server'], wallet['port'], wallet['address'], wallet['pass'], " ".join(map(str, device)))
         return cmd
 
     
