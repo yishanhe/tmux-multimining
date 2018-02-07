@@ -23,6 +23,16 @@ devices:
     pwrcap: 250
 
 wallets:
+  btcz-miningspeed:
+    server: us.miningspeed.com
+    port: 3072
+    address: t1YRhV4rtvnSN4YGPxyGJyaosopB31GrTT7.eva00
+    pass: x
+  sng-miningspeed:
+    server: us.miningspeed.com
+    port: 3022
+    address: s1UANgfyVNjxAQMCC7sj7C78oN73NcBt1Jp.eva00
+    pass: x        
   zec-flypool-bittrex: 
     server: eu1-zcash.flypool.org
     port: 3333
@@ -56,6 +66,25 @@ miners:
 
 runners:
   default:
+    - miner: zm
+      wallet: zec-flypool-binance
+      devices:
+        - 0
+        - 5
+    - miner: zm
+      wallet: zcl-donation
+      devices:
+        - 3
+        - 4     
+    - miner: zm
+      wallet: btcz-miningspeed
+      devices:
+        - 1 
+    - miner: zm
+      wallet: sng-miningspeed
+      devices:
+        - 2 
+  two:
     - miner: zm
       wallet: zec-flypool-binance
       devices:
@@ -94,6 +123,7 @@ runners:
         - 3
         - 4
         - 5
+
 
   
 
