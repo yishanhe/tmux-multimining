@@ -14,6 +14,10 @@ class MultiMiner(object):
     
     use session name suffix as the identifier for runner plan
 
+    Command List
+        start [planname]        run the corresponding plan, or the default if planname not given
+        stop                    stop the miner tmux session
+
     TMUX commands you might use
         C-b d          detach the current session
         C-b left       go to the next pane on the left
