@@ -232,3 +232,6 @@ $RECYCLE.BIN/
 **/firmware.bin
 **/.vscode
 # End of https://www.gitignore.io/api/node,linux,macos,python,windows
+
+
+*.yaml

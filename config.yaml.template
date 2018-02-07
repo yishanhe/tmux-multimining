@@ -1,63 +1,64 @@
-# current only support equihash
+# current only support equihash, dstm miner, nvidia gpus on linux
+# more configurations (miners, amd gpus, power limits, over-clocked, win, mac) are comming
 
 # gpu configures
-# arrange this configurations as the output of nvidia-smi
+# arrange this configurations based on the output of nvidia-smi
 devices:
   - id: 0
     model: evga-1080ti-sc2
-    pwrcap: 250
+    pwr_default: 250
   - id: 1
     model: evga-1070ti-sc
-    pwrcap: 180
+    pwr_default: 180
   - id: 2
     model: evga-1070ti-sc
-    pwrcap: 180
+    pwr_default: 180
   - id: 3
     model: evga-1080ti-ftw3
-    pwrcap: 280
+    pwr_default: 280
   - id: 4
     model: nvidia-1070-founder
-    pwrcap: 150
+    pwr_default: 150
   - id: 5
     model: evga-1080ti-sc2
-    pwrcap: 250
+    pwr_default: 250
 
 wallets:
-  zec-flypool-bittrex: 
-    server: eu1-zcash.flypool.org
-    port: 3333
-    address: t1QMNWFNGcJw4yJWm1md57QtVRnHeTcPxpf.eva00
-    pass: x
   zec-flypool-binance:
     server: eu1-zcash.flypool.org
     port: 3333
-    address: t1aLAzdsnMbxS3xMsGV2pUK66Ro58oLv1eD.eva00
+    address: t1aLAzdsnMbxS3xMsGV2pUK66Ro58oLv1eD.workername
     pass: x
   zen-suprnova:
     server: zen.suprnova.cc
     port: 3618
-    address: yishanhe.eva00
-    pass: x
-  zcl-suprnova:
-    server: zcl.suprnova.cc
-    port: 4042
-    address: yishanhe.eva00
-    pass: x
+    address: suprnova_username.workername
+    pass: suprnova_worker_pass
   zcl-donation:
     server: pool.zclassic.org
     port: 2083
-    address: t1Nncx9t9AJFq1LXoxkRE8YxZpoLxDJRNxK.eva00
+    address: walletaddress.workername
     pass: x     
 
 miners:
-  zm: ./miners/zm
-  ewbf: ./miners/ewbf
-  bminer: ./miners/bminer
+  zm: 
+    location: ./miners/zm
+    version: 0.5.8
+    checksum: 
+      sha1: 827b137e061fe1da8f8fbcea12cec22449d3ae13 
+  ewbf: 
+    location: ./miners/ewbf
+    version: 0.3.4
+  bminer:
+    location: ./miners/bminer
+    version: 5.3.0
+    checksum:
+      sha256: 6e742df803a99dfdb4505890344b21968185081e99b10a8cfc312886bce131be
 
 runners:
   default:
     - miner: zm
-      wallet: zec-flypool-binance
+      wallet: zec-flypool
       devices:
         - 1
         - 2
@@ -68,9 +69,9 @@ runners:
         - 0
         - 3
         - 5     
-  three:
+  three-miner:
     - miner: zm
-      wallet: zec-flypool-binance
+      wallet: zec-flypool
       devices:
         - 1
         - 2
@@ -84,7 +85,7 @@ runners:
       wallet: zen-suprnova
       devices:
         - 3     
-  zec-binance:
+  single-miner:
     - miner: zm
       wallet: zec-flypool-binance
       devices:
