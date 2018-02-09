@@ -95,11 +95,16 @@ class MultiMiner(object):
         # we use only one window, the default window
         default_window = self.miner_session.attached_window
 
-        p = default_window.attached_pane
+        p = None 
+        for miner_conf in runner_config:
 
-        for pane_idx, miner_conf in enumerate(runner_config):
+            device_config = miner_conf['devices']
+            if len(device_config) == 0:
+                continue
 
-            if pane_idx > 0:
+            if p is None:
+                p = default_window.attached_pane
+            else:
                 # split the current window for more panes
                 p = default_window.split_window(
                     target=p.id,
@@ -113,8 +118,6 @@ class MultiMiner(object):
 
             wallet_config = config['wallets'][miner_conf['wallet']]
             miner_config = config['miners'][miner_conf['miner']]
-            device_config = miner_conf['devices']
-
             # build cmd
             cmd = self._build_miner_cmd(miner_conf['miner'], wallet_config, miner_config, device_config)
             print(cmd)
