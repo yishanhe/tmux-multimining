@@ -24,7 +24,7 @@ devices:
     pwr_default: 250
 
 wallets:
-  zec-flypool-binance:
+  zec-flypool:
     server: eu1-zcash.flypool.org
     port: 3333
     address: t1aLAzdsnMbxS3xMsGV2pUK66Ro58oLv1eD.workername
@@ -87,7 +87,7 @@ runners:
         - 3     
   single-miner:
     - miner: zm
-      wallet: zec-flypool-binance
+      wallet: zec-flypool
       devices:
         - 0
         - 1
