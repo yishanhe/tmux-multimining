@@ -97,9 +97,8 @@ class MultiMiner(object):
 
         p = None 
         for miner_conf in runner_config:
-
             device_config = miner_conf['devices']
-            if len(device_config) == 0:
+            if device_config is None or len(device_config) == 0:
                 continue
 
             if p is None:
