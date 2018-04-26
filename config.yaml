@@ -38,10 +38,10 @@ wallets:
     ssl: False
   zec-flypool-binance:
     server: us1-zcash.flypool.org
-    port: 13333
+    port: 3443
     address: t1aLAzdsnMbxS3xMsGV2pUK66Ro58oLv1eD.eva00
     pass: x
-    ssl: False
+    ssl: True 
   zen-suprnova:
     server: zen.suprnova.cc
     port: 3618

@@ -132,7 +132,10 @@ class MultiMiner(object):
         if miner_name == 'zm':
             # zm --server servername.com --port 1234 --user username -- dev 0 1 2 --time --color
             # TODO: support temperature adaptation
-            cmd = '%s --server %s --port %d --user %s --pass %s --dev %s --time --color' % (miner['location'], wallet['server'], wallet['port'], wallet['address'], wallet['pass'], " ".join(map(str, device)))
+            protocol = ''
+            if miner['ssl'] is True:
+                protocol = 'ssl://'
+            cmd = '%s --server %s%s --port %d --user %s --pass %s --dev %s --time --color' % (miner['location'], protocol, wallet['server'], wallet['port'], wallet['address'], wallet['pass'], " ".join(map(str, device)))
         if miner_name == 'bminer':
             protocol = 'stratum'
             if miner['ssl'] is True:
