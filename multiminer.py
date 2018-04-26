@@ -99,6 +99,7 @@ class MultiMiner(object):
         for miner_conf in runner_config:
             device_config = miner_conf['devices']
             if device_config is None or len(device_config) == 0:
+                # skip if no or 0 device configed
                 continue
 
             if p is None:
@@ -117,6 +118,7 @@ class MultiMiner(object):
 
             wallet_config = config['wallets'][miner_conf['wallet']]
             miner_config = config['miners'][miner_conf['miner']]
+
             # build cmd
             cmd = self._build_miner_cmd(miner_conf['miner'], wallet_config, miner_config, device_config)
             print(cmd)
@@ -128,7 +130,18 @@ class MultiMiner(object):
     def _build_miner_cmd(self, miner_name, wallet, miner, device):
         cmd = ''
         if miner_name == 'zm':
-            cmd = '%s --server %s --port %d --user %s --pass %s --dev %s' % (miner['location'], wallet['server'], wallet['port'], wallet['address'], wallet['pass'], " ".join(map(str, device)))
+            # zm --server servername.com --port 1234 --user username -- dev 0 1 2 --time --color
+            # TODO: support temperature adaptation
+            cmd = '%s --server %s --port %d --user %s --pass %s --dev %s --time --color' % (miner['location'], wallet['server'], wallet['port'], wallet['address'], wallet['pass'], " ".join(map(str, device)))
+        if miner_name == 'bminer':
+            protocol = 'stratum'
+            if miner['ssl'] is True:
+                protocol = 'stratum+ssl'
+            # ./bminer -uri $SCHEME://$USERNAME@$POOL -api 127.0.0.1:1880
+            cmd = '%s -uri %s://%s:%s@%s:%s -devices ' % (miner['location'], protocol, wallet['address'], wallet['pass'], wallet['server'], wallet['port'], ",".join(map(str, device)))
+        if miner_name == 'ethminer':
+            cmd = ''
+
         return cmd
 
     
