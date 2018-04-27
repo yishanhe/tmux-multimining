@@ -129,6 +129,7 @@ class MultiMiner(object):
     
     def _build_miner_cmd(self, miner_name, wallet, miner, device):
         cmd = ''
+
         if miner_name == 'zm':
             # zm --server servername.com --port 1234 --user username -- dev 0 1 2 --time --color
             # TODO: support temperature adaptation
@@ -136,13 +137,16 @@ class MultiMiner(object):
             if wallet['ssl'] is True:
                 protocol = 'ssl://'
             cmd = '%s --server %s%s --port %d --user %s --pass %s --dev %s --time --color' % (miner['location'], protocol, wallet['server'], wallet['port'], wallet['address'], wallet['pass'], " ".join(map(str, device)))
+
         if miner_name == 'bminer':
+            # ./bminer -uri $SCHEME://$USERNAME@$POOL -api 127.0.0.1:1880
             protocol = 'stratum://'
             if wallet['ssl'] is True:
                 protocol = 'stratum+ssl://'
-            # ./bminer -uri $SCHEME://$USERNAME@$POOL -api 127.0.0.1:1880
             cmd = '%s -uri %s%s:%s@%s:%s -devices %s' % (miner['location'], protocol, wallet['address'], wallet['pass'], wallet['server'], wallet['port'], ",".join(map(str, device)))
+
         if miner_name == 'ethminer':
+            # ./ethminer -P stratum+ssl://0x2f112f0f47fda00fb52493a990d49a75faed69e3.miner1@us1.ethermine.org:5555 -U
             protocol = 'stratum://'
             if wallet['ssl'] is True:
                 protocol = 'stratum+ssl://'

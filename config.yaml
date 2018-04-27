@@ -88,6 +88,9 @@ miners:
   ewbf: 
     location: ./miners/ewbf
     version: 0.3.4
+  ethminer:
+    location: ./miners/ethminer
+    version: 0.14.0rc5
   bminer:
     location: ./miners/bminer
     version: 6.1.0
@@ -102,9 +105,9 @@ runners:
     - miner: zm
       wallet: zen-suprnova
       devices: []
-    - miner: bminer
+    - miner: ethminer
+      wallet: eth-ethermine
+      devices: [1,2,4]
+    - miner: zm
       wallet: zec-flypool-binance
-      devices: [0,1,2,3,4,5]
-
-
-# ./ethminer -P stratum+ssl://0x2f112f0f47fda00fb52493a990d49a75faed69e3.miner1@us1.ethermine.org:5555 -U
+      devices: [0,3,5]
