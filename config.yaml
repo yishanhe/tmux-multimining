@@ -1,6 +1,6 @@
 # current only support equihash, dstm miner, nvidia gpus on linux	
 # more configurations (miners, amd gpus, power limits, over-clocked, win, mac) are comming	
-	
+
 # gpu devices	
 # based on the output of nvidia-smi
 devices:
@@ -96,7 +96,7 @@ runners:
     - miner: zm
       wallet: zen-suprnova
       devices: []
-    - miner: zm
+    - miner: bminer
       wallet: zec-flypool-binance
       devices: [0,1,2,3,4,5]
 
