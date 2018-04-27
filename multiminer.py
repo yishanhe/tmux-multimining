@@ -143,7 +143,10 @@ class MultiMiner(object):
             # ./bminer -uri $SCHEME://$USERNAME@$POOL -api 127.0.0.1:1880
             cmd = '%s -uri %s%s:%s@%s:%s -devices %s' % (miner['location'], protocol, wallet['address'], wallet['pass'], wallet['server'], wallet['port'], ",".join(map(str, device)))
         if miner_name == 'ethminer':
-            cmd = ''
+            protocol = 'stratum://'
+            if wallet['ssl'] is True:
+                protocol = 'stratum+ssl://'
+            cmd = '%s -P %s%s:%s@%s:%s -U --cuda-devices %s' % (miner['location'], protocol, wallet['address'], wallet['pass'], wallet['server'], wallet['port'], " ".join(map(str, device)))
 
         return cmd
 

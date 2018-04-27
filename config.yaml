@@ -72,6 +72,12 @@ wallets:
     address: yishanhe.eva00
     pass: x
     ssl: False
+  eth-ethermine:
+    server: us1.ethermine.org
+    port: 5555
+    address: 0x2f112f0f47fda00fb52493a990d49a75faed69e3.eva00
+    pass: x
+    ssl: True
 
 miners:
   zm: 
