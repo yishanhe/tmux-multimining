@@ -22,5 +22,3 @@ then you are free to go
 - [Binance referral](www.binance.com/?ref=21157928)
 - BTC address: 18KiUeK4QpYyL1GwDmA9VFic1q8bJm3568
 - ZEC address: t1aLAzdsnMbxS3xMsGV2pUK66Ro58oLv1eD
-- ZCL address: t1Nncx9t9AJFq1LXoxkRE8YxZpoLxDJRNxK
-- ZEN address: znaP6otMktRLbJCQscWVbRkCjH2rQJrbeM4
