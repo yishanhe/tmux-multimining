@@ -120,15 +120,16 @@ class MultiMiner(object):
             miner_config = config['miners'][miner_conf['miner']]
 
             # build cmd
-            cmd = self._build_miner_cmd(miner_conf['miner'], wallet_config, miner_config, device_config)
+            cmd = self._build_miner_cmd(miner_conf, wallet_config, miner_config, device_config)
             print(cmd)
             p.send_keys(cmd, suppress_history=True)
 
         self.server.attach_session(SESSION_NAME)
             
     
-    def _build_miner_cmd(self, miner_name, wallet, miner, device):
+    def _build_miner_cmd(self, miner_conf, wallet, miner, device):
         cmd = ''
+        miner_name = miner_conf['miner']
 
         if miner_name == 'zm':
             # zm --server servername.com --port 1234 --user username -- dev 0 1 2 --time --color
@@ -151,7 +152,13 @@ class MultiMiner(object):
             if wallet['ssl'] is True:
                 protocol = 'stratum+ssl://'
             cmd = '%s -P %s%s:%s@%s:%s -U --cuda-devices %s' % (miner['location'], protocol, wallet['address'], wallet['pass'], wallet['server'], wallet['port'], " ".join(map(str, device)))
-
+	if miner_name == 'ccminer':
+	    protocol = 'stratum+tcp://'
+            alg = miner_conf['wallet'].split('-')[-1]
+            if wallet['ssl'] is True:
+                print("ccminer not support ssl")
+                return "exit"
+            cmd = '%s -a %s -o %s%s:%s -u %s -p %s -d %s' % (miner['location'], alg, protocol, wallet['server'], wallet['port'], wallet['address'], wallet['pass'],  ",".join(map(str, device)))
         return cmd
 
     

@@ -60,6 +60,12 @@ wallets:
     address: yishanhe.eva00
     pass: x
     ssl: False    
+  xvg-suprnova-x17: # the last x17 must be algorithm name
+    server: xvg-x17.suprnova.cc
+    port: 7477
+    address: yishanhe.eva00
+    pass: x
+    ssl: False
   kmd-suprnova:
     server: kmd.suprnova.cc
     port: 6250
@@ -80,6 +86,9 @@ wallets:
     ssl: False
 
 miners:
+  ccminer:
+    location: ./miners/ccminer
+    version: 2.2.5
   zm: 
     location: ./miners/zm
     version: 0.6
@@ -108,6 +117,9 @@ runners:
     - miner: ethminer
       wallet: eth-ethermine
       devices: []
+    - miner: ccminer
+      wallet: xvg-suprnova-x17
+      devices: [0,5]
     - miner: zm
       wallet: zec-flypool-binance
-      devices: [0,3,5]
+      devices: [3]
