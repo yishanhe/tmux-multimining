@@ -73,11 +73,11 @@ wallets:
     pass: x
     ssl: False
   eth-ethermine:
-    server: us1.ethermine.org
-    port: 5555
+    server: eu1.ethermine.org
+    port: 4444
     address: 0x2f112f0f47fda00fb52493a990d49a75faed69e3.eva00
     pass: x
-    ssl: True
+    ssl: False
 
 miners:
   zm: 
@@ -101,13 +101,13 @@ runners:
   default:
     - miner: zm
       wallet: btcp-suprnova
-      devices: []
+      devices: [4]
     - miner: zm
       wallet: zen-suprnova
-      devices: []
+      devices: [1,2]
     - miner: ethminer
       wallet: eth-ethermine
-      devices: [1,2,4]
+      devices: []
     - miner: zm
       wallet: zec-flypool-binance
       devices: [0,3,5]

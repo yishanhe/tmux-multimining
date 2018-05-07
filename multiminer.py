@@ -147,7 +147,7 @@ class MultiMiner(object):
 
         if miner_name == 'ethminer':
             # ./ethminer -P stratum+ssl://0x2f112f0f47fda00fb52493a990d49a75faed69e3.miner1@us1.ethermine.org:5555 -U
-            protocol = 'stratum://'
+            protocol = 'stratum+tcp://'
             if wallet['ssl'] is True:
                 protocol = 'stratum+ssl://'
             cmd = '%s -P %s%s:%s@%s:%s -U --cuda-devices %s' % (miner['location'], protocol, wallet['address'], wallet['pass'], wallet['server'], wallet['port'], " ".join(map(str, device)))
